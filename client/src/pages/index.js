@@ -1,0 +1,8 @@
+export {default as Home } from './Home'
+export {default as Settings } from './Settings'
+export {default as Recommendations } from './Recommendations'
+export {default as Register } from './Register'
+export {default as Login } from './Login'
+export {default as Movie } from './Movie'
+export {default as SharedMovies } from './SharedMovies'
+export {default as Profile } from './Profile'

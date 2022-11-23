@@ -1,0 +1,106 @@
+type Query {
+    hello:String
+    movies(page:Int,lang:String):Movies
+    getMovieById(id:ID!,lang:String): MovieInfo
+    moviesByIds(ids:[Int!], lang:String): [MovieInfo!]
+    getSavedMovieLists(token:String!):[SavedList]
+    getUserSettings(token:String!):Settings
+    filteredMovies(filtersInput:FiltersInput): Movies
+}
+type Mutation{
+    createUser(registerInput:RegisterInput!):User
+    loginUser(loginInput:LoginInput!):User
+    saveMovieList(listInput:ListInput!, movieList:[MovieInput!]):SavedList
+    deleteMovieList(listTitle:String!, token:String! ):[SavedList]
+    changeSettings(token:String,locale:String,saveLists:Boolean):Settings
+}
+type Movies{
+    page:Int!
+    results:[Movie!]!
+    totalPages:Int!,
+    totalResults:Int!
+}
+type Movie {
+    id:ID!
+    title:String!
+    releaseDate:String!
+    posterPath:String!
+    voteAverage:Float
+}
+type MovieInfo{
+    id:ID!
+    title:String!
+    releaseDate:String!
+    iso:[SpokenLanguages]
+    genres:[Genre]
+    posterPath:String
+    popularity:Float
+    budget:Int
+    voteCount:Int
+    overview:String
+    productionCompanies:[ProductionCompanies!]
+    runtime:Int
+}
+
+type Genre{
+    id:Int!
+    name:String
+}
+type ProductionCompanies{
+    id:ID
+    name:String
+    logoPath:String
+}
+
+type SpokenLanguages{
+    iso:String
+    name:String
+}
+type User {
+    username:String!
+    email:String!
+    password:String
+    token:String
+    status:String
+    settings:Settings
+}
+type SavedList{
+    listTitle:String
+    link:String
+    movies:[SavedMovie]
+}
+type SavedMovie{
+    id:ID!
+    title:String
+    releaseDate:String
+    posterPath:String
+}
+type Settings{
+    locale:String
+    saveLists:Boolean
+}
+input RegisterInput {
+    username:String!
+    email:String!
+    password:String!
+}
+input LoginInput {
+    email:String!
+    password:String!
+}
+input MovieInput {
+    id:ID!
+    title:String
+    releaseDate:String
+    posterPath:String
+}
+input ListInput {
+    token:String!
+    listTitle:String!
+    link:String!
+}
+input FiltersInput {
+    sortBy:String
+    releaseDate:Int
+    wayOfSorting:String
+}
