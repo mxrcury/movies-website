@@ -12,10 +12,10 @@ const MovieCard = ({movie, onAddMovie}) => {
 
   return (
     <Card>
-      <CardImg
-        src={`https://image.tmdb.org/t/p/original/${movie.posterPath}`}
-        alt={movie.title}
-      />
+        <CardImg
+          src={`https://image.tmdb.org/t/p/original/${movie.posterPath}`}
+          alt={movie.title}
+        />
       <CardContent sx={{ maxHeight: "230px" }}>
         <h3>{movie.title}</h3>
         <Info>
@@ -41,13 +41,18 @@ const MovieCard = ({movie, onAddMovie}) => {
           paddingBottom: "10px",
         }}
       >
-        <Button component={Link} to={`/movie/${movie.id}`} color="secondary" variant="contained">
-          <FormattedMessage id='recommends.info' />
+        <Button
+          component={Link}
+          to={`/movie/${movie.id}`}
+          color="secondary"
+          variant="contained"
+        >
+          <FormattedMessage id="recommends.info" />
         </Button>
         <Button
           color="secondary"
           variant="contained"
-          onClick={()=>onAddMovie(movie)}
+          onClick={() => onAddMovie(movie)}
           sx={{ width: "10%", marginLeft: "10px" }}
         >
           <AddIcon />

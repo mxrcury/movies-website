@@ -96,3 +96,20 @@ query getUserSettings($token:String){
   }
 }
 `
+
+export const FILTERED_MOVIES = gql`
+query filteredMovies($filtersInput:FiltersInput,$lang:String, $page:Int){
+  filteredMovies(filtersInput:$filtersInput, lang:$lang, page:$page) {
+    page
+    results {
+      id
+      title
+      voteAverage
+      releaseDate
+      posterPath
+    }
+    totalResults
+    totalPages
+  }
+}
+`

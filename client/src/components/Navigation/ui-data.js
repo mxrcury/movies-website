@@ -1,5 +1,7 @@
+import { FormattedMessage } from 'react-intl';
+
 const sideBarLinks = [
-    {text:'Home',path:'/'}, {text:'Recommendations',path:'/recommends'}, {text:'Settings',path:'/settings'}
+    {text:<FormattedMessage id='navigations.home' />,path:'/'}, {text:<FormattedMessage id='navigations.recommends'/>,path:'/recommends'}, {text:<FormattedMessage id='navigations.settings'/>,path:'/settings'}
 ]
 
 export {

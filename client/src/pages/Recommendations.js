@@ -13,18 +13,19 @@ import SharedMovies from './SharedMovies';
 import { useCallback } from 'react';
 import { Context } from './../providers/context/context';
 import { FormattedMessage } from 'react-intl';
-import { useAuth } from '../hooks';
+import { useAuth, useFilters } from '../hooks';
 import Portal from '../components/Portal';
 
 
 
 const Recommendations = () => {
-  const [page, setPage] = useState(1);
   const [params,setParams] = useState({ids:[],title:''})
-  const {state} = useContext(Context)
+  const [ movies, setMovies ] = useState([])
+  const { state } = useContext(Context)
   const { selectedMovies, selectMovie, deleteMovie } = useMovies();
 
   const { isAuth } = useAuth()
+  const { page, handlePage } = useFilters()
 
   const [searchParams] = useSearchParams()
 
@@ -36,10 +37,13 @@ const Recommendations = () => {
 
   const {data:moviesByIdsData} = useQuery(MOVIES_BY_IDS,{variables:{ids:params.ids, locale:state.locale}})
 
-  const { data:popularMoviesData,loading } = useQuery(GET_MOVIES, { variables: { page, locale:state.locale } });
-  const paginationHandler = (event, page) => {
-    setPage(page);
-  };
+  const { loading } = useQuery(GET_MOVIES, {
+    onCompleted: (data) => {
+      const { movies } = data
+      setMovies(movies);
+    },
+    variables: { page, locale: state.locale },
+  });
   const onAddMovie = useCallback((movie) => {
     selectMovie(movie);
   },[selectMovie])
@@ -72,12 +76,12 @@ const Recommendations = () => {
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Paper>
-                <Filters />
+                <Filters setMovies={setMovies} />
               </Paper>
             </Grid>
             <Grid item xs={12} md={8}>
               <MoviesList
-                popularMovies={popularMoviesData}
+                popularMovies={movies}
                 onAddMovie={onAddMovie}
               />
             </Grid>
@@ -85,12 +89,12 @@ const Recommendations = () => {
               selectedMovies={selectedMovies}
               deleteMovie={onDeleteMovie}
             />
-            {popularMoviesData ? (
+            {movies ? (
               <PaginationContainer>
                 <Pagination
-                  count={popularMoviesData.movies.totalPages}
+                  count={movies.totalPages}
                   page={page}
-                  onChange={paginationHandler}
+                  onChange={handlePage}
                   color="secondary"
                 />
               </PaginationContainer>

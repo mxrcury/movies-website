@@ -1,6 +1,6 @@
 const axios = require('axios')
 const { ObjectId } = require('mongodb')
-const { getMovies, getMovie,getDetails } = require('../modules/movies');
+const { getMovies, getMovie,getDetails, getFilteredMovies } = require('../modules/movies');
 
 const { Movies } = require('../modules/movies/entities/Movies');
 const { Movie } = require('../modules/movies/entities/Movie');
@@ -26,7 +26,6 @@ const getMovieById = async (_,args) => {
 }
 
 const moviesByIds = async (_, { ids, lang }) => {
-    console.log(lang);
     const requests = ids.map((id) => getDetails(id, lang));
     const response = await Promise.all(requests);
     const data = response.map((movie) => new MovieInfo(movie.data));
@@ -47,8 +46,10 @@ const getUserSettings = async (_,{ token }) => {
     return {locale:user.settings.locale,saveLists:user.settings.saveLists}
 }
 
-const filteredMovies = (_,args) => {
-
+const filteredMovies = async (_,args) => {
+    const { filtersInput, lang, page } = args
+    const data = await getFilteredMovies(filtersInput, lang, page)
+    return new Movies(data)
 }
 
 module.exports = {
@@ -56,5 +57,6 @@ module.exports = {
     getMovieById,
     moviesByIds,
     getSavedMovieLists,
-    getUserSettings
+    getUserSettings,
+    filteredMovies
 }

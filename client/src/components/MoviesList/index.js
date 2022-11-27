@@ -7,7 +7,7 @@ const MoviesList = ({popularMovies, onAddMovie}) => {
   return (
     <Grid container spacing={4}>
                 {popularMovies ? (
-                  popularMovies.movies.results.map((movie) => (
+                  popularMovies.results.map((movie) => (
                     <Grid item xs={6} md={4} key={movie.id}>
                       <Paper sx={{ margin: "5px" }}>
                         <MovieCard movie={movie} onAddMovie={onAddMovie} />

@@ -22,14 +22,22 @@ const getDetails = (id, lang) => {
   return axios.get(`${process.env.API_URL}movie/${id}?api_key=${process.env.API_KEY}&language=${lang}`)
 }
 
-const getFilteredMovies = (filters) => {
-  const { } = filters
-  return axios.get(`${proccess.env.API_URL}/discover/movie?api_key=${process.env.API_KEY}&language=${lang}`)
+const getFilteredMovies = async (filters, lang = 'en-US', page = 1) => {
+  console.log('111')
+  const {
+    sortBy = "popularity",
+    wayOfSorting = asc,
+    primaryReleaseYear = new Date().getFullYear(),
+    includeAdult = false,
+  } = filters;
+  const data = await axios.get(`${process.env.API_URL}/discover/movie?api_key=${process.env.API_KEY}&language=${lang}&sort_by=${sortBy}.${wayOfSorting}&include_adult=${includeAdult}&primary_release_year=${primaryReleaseYear}&page=${page}`)
+  return data.data
 }
 
 
 module.exports = {
     getMovies,
     getMovie,
-    getDetails
+    getDetails,
+    getFilteredMovies
 }

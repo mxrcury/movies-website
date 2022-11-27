@@ -5,7 +5,7 @@ type Query {
     moviesByIds(ids:[Int!], lang:String): [MovieInfo!]
     getSavedMovieLists(token:String!):[SavedList]
     getUserSettings(token:String!):Settings
-    filteredMovies(filtersInput:FiltersInput): Movies
+    filteredMovies(filtersInput:FiltersInput, lang:String, page:Int): Movies
 }
 type Mutation{
     createUser(registerInput:RegisterInput!):User
@@ -101,6 +101,7 @@ input ListInput {
 }
 input FiltersInput {
     sortBy:String
-    releaseDate:Int
+    releaseYear:Int
     wayOfSorting:String
+    includeAdult:Boolean
 }
