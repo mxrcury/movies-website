@@ -3,6 +3,8 @@ To set up the project you need to install all the node modules in both of the pr
 ```
 $ cd client
 $ npm install
+```
+```
 $ cd ../server
 $ npm install
 ```
