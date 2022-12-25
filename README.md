@@ -11,7 +11,7 @@ $ npm install
 ###### Running the projects
 For this to work you need to have both the node server and the react project running.
 
-###### Start the server
+#### Start the server
 To start the server you need to call these commands
 ```
 $ cd server
