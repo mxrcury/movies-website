@@ -10,7 +10,7 @@ $ cd client
 $ npm install
 ```
 ```
-$ cd ../server
+$ cd ../server/
 $ npm install
 ```
 #### Running the projects
@@ -19,7 +19,7 @@ For this to work you need to have both the node server and the react project run
 #### Start the server
 To start the server you need to call these commands
 ```
-$ cd server
+$ cd server/src
 $ npm start
 ```
 This server should now be running on port 7000. 
