@@ -10,7 +10,7 @@ $ cd client
 $ npm install
 ```
 ```
-$ cd ../server/
+$ cd ../server
 $ npm install
 ```
 #### Running the projects
