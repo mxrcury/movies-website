@@ -1,3 +1,8 @@
+## Used technologies:
+— ReactJS
+— NodeJS + Apollo
+— GraphQL
+— MongoDB + Mongoose
 ## Follow next steps to set up and use this app: 
 To set up the project you need to install all the node modules in both of the projects
 ```
